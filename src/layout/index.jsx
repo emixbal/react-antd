@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
-import { items } from "../router";
+import { useNavigate } from "react-router-dom";
+import { myRouters } from "../router";
 
 import { Breadcrumb, Layout, Menu } from 'antd';
 
@@ -8,6 +8,7 @@ const { Header, Content, Sider } = Layout;
 
 const App = (props) => {
     const { children } = props
+    const navigate = useNavigate();
     const [collapsed, setCollapsed] = useState(false);
     const [paths, setPaths] = useState([]);
 
@@ -16,22 +17,17 @@ const App = (props) => {
             return value !== "";
         });
         setPaths(paths)
-    }, [])
-
-
-    const handleMenuNavigate = (selectedKeys) => {
-        console.log(selectedKeys[0]);
-        return (
-            <Link to="/home" />
-        )
-    }
+    }, []);
 
     return (
         <>
             <Layout style={{ minHeight: '100vh' }}>
                 <Sider collapsible collapsed={collapsed} onCollapse={value => setCollapsed(value)}>
                     <div className="logo" />
-                    <Menu theme="dark" defaultSelectedKeys={paths} mode="inline" items={items} onSelect={({ selectedKeys }) => handleMenuNavigate(selectedKeys)}></Menu>
+                    <Menu
+                        theme="dark" defaultSelectedKeys={paths} mode="inline" items={myRouters}
+                        onSelect={({ selectedKeys }) => navigate(`/${selectedKeys[0]}`)}
+                    />
                 </Sider>
                 <Layout className="site-layout">
                     <Header className="site-layout-background" style={{ padding: 0 }} />
