@@ -56,6 +56,7 @@ export const handleLogin = () => {
         const res = await Post(`${BASE_API_URL}/login`, {
             email, password
         });
+        dispatch(changeLoading(false))
 
         if(!res){
             return notification.error({
