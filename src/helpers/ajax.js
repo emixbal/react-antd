@@ -17,7 +17,7 @@ function onError(error) {
                 description:'No internet connection',
             })
         }
-        throw false
+        return false
     }
 
     if (error.response.status === 401) {
@@ -31,7 +31,7 @@ function onError(error) {
             message: 'Error',
             description:'Connection error',
         })
-        throw false
+        return false
     }
 }
 
