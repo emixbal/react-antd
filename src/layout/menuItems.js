@@ -10,12 +10,14 @@ export const items = [
         key: "home",
         icon: <PieChartOutlined />,
         children: "",
+        auth:"auth"
     },
     {
         label: "Home2",
         key: "home2",
         icon: <PieChartOutlined />,
         children: "",
+        auth:"admin"
     },
     {
         label: "Users",
