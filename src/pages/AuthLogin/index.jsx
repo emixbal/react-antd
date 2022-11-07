@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import './index.css';
 import { getToken } from "../../library/userAuth";
 
-const NormalLoginForm = () => {
+const LoginForm = () => {
     const { navigate } = useNavigate();
     const onFinish = values => {
         console.log('Received values of form: ', values);
@@ -78,4 +78,4 @@ const NormalLoginForm = () => {
     );
 };
 
-export default NormalLoginForm;
+export default LoginForm;

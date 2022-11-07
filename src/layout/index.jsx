@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import { myRouters } from "../router";
-
 import { Breadcrumb, Layout, Menu } from 'antd';
+
+import { items } from "./menuItems";
+import { getToken } from "../library/userAuth";
 
 const { Header, Content, Sider } = Layout;
 
@@ -13,11 +14,17 @@ const App = (props) => {
     const [paths, setPaths] = useState([]);
 
     useEffect(() => {
-        var paths = window.location.pathname.split('/').filter(function (value) {
+        let paths = window.location.pathname.split('/').filter(function (value) {
             return value !== "";
         });
         setPaths(paths)
-    }, []);
+
+        const token = getToken();
+        if(!token){
+            navigate("/login")
+        }
+
+    }, [navigate]);
 
     return (
         <>
@@ -25,7 +32,7 @@ const App = (props) => {
                 <Sider collapsible collapsed={collapsed} onCollapse={value => setCollapsed(value)}>
                     <div className="logo" />
                     <Menu
-                        theme="dark" defaultSelectedKeys={paths} mode="inline" items={myRouters}
+                        theme="dark" defaultSelectedKeys={paths} mode="inline" items={items}
                         onSelect={({ selectedKeys }) => navigate(`/${selectedKeys[0]}`)}
                     />
                 </Sider>

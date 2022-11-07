@@ -4,7 +4,8 @@ import {
 } from '@ant-design/icons';
 
 import Home from "./pages/Home"
-import Login from "./pages/Login"
+import AuthLogin from "./pages/AuthLogin"
+import AuthRegister from "./pages/AuthRegister"
 
 export const myRouters = [
     {
@@ -52,22 +53,23 @@ export const myRouters = [
         icon: <PieChartOutlined />,
         children: "",
     },
-];
-
-
-export const myAuthRouters = [
     {
         label: "Login",
         key: "login",
         path: "login",
-        element: <Login />,
+        element: <AuthLogin />,
         children: "",
     },
     {
         label: "Register",
         key: "register",
         path: "register",
-        element: <>Register page</>,
+        element: <AuthRegister />,
         children: "",
     },
+];
+
+
+export const myAuthRouters = [
+    
 ]
