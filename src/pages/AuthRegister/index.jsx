@@ -4,7 +4,7 @@ import { Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link } from "react-router-dom";
 
-import './index.css';
+import './style.css';
 import { getToken } from "../../library/userAuth";
 
 const RegisterForm = () => {
