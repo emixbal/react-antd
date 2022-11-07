@@ -4,6 +4,7 @@ import {
 } from '@ant-design/icons';
 
 import Home from "./pages/Home"
+import Login from "./pages/Login"
 
 export const myRouters = [
     {
@@ -59,7 +60,7 @@ export const myAuthRouters = [
         label: "Login",
         key: "login",
         path: "login",
-        element: <>Login page</>,
+        element: <Login />,
         children: "",
     },
     {
