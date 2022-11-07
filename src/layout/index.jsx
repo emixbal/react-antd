@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Breadcrumb, Layout, Menu } from 'antd';
+import {
+    LogoutOutlined,
+} from '@ant-design/icons';
 
 import { items } from "./menuItems";
-import { getToken } from "../library/userAuth";
+import { getToken, removeToken } from "../library/userAuth";
 
 const { Header, Content, Sider } = Layout;
 
@@ -20,11 +23,16 @@ const App = (props) => {
         setPaths(paths)
 
         const token = getToken();
-        if(!token){
+        if (!token) {
             navigate("/login")
         }
 
     }, [navigate]);
+
+    const handleLogout = () => {
+        removeToken()
+        navigate("/login")
+    }
 
     return (
         <>
@@ -35,6 +43,13 @@ const App = (props) => {
                         theme="dark" defaultSelectedKeys={paths} mode="inline" items={items}
                         onSelect={({ selectedKeys }) => navigate(`/${selectedKeys[0]}`)}
                     />
+                    <Menu theme="dark" mode="inline">
+                        <Menu.Item icon={<LogoutOutlined />}>
+                            <div onClick={()=>handleLogout()}>
+                                Logout
+                            </div>
+                        </Menu.Item>
+                    </Menu>
                 </Sider>
                 <Layout className="site-layout">
                     <Header className="site-layout-background" style={{ padding: 0 }} />
