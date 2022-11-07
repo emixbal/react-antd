@@ -7,6 +7,16 @@ const main = (state = defaultState(), action) => {
                 ...state,
                 isLoading: action.value
             }
+        case type.CHANGE_EMAIL:
+            return {
+                ...state,
+                email: action.value
+            }
+        case type.CHANGE_PASSWORD:
+            return {
+                ...state,
+                password: action.value
+            }
         case type.RESET:
             return {
                 ...defaultState(),
@@ -18,6 +28,8 @@ const main = (state = defaultState(), action) => {
 
 const defaultState = () => ({
     isLoading: false,
+    email:"",
+    password:"",
 })
 
 export default main

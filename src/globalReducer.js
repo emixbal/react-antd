@@ -3,11 +3,11 @@ import thunk from "redux-thunk";
 import logger from "redux-logger";
 
 
-import { reducers as home } from "./pages/Home";
+import { reducers as authLogin } from "./pages/AuthLogin";
 
 
 const combine = combineReducers({
-  home
+  authLogin
 });
 
 const store = createStore(combine, applyMiddleware(thunk, logger));

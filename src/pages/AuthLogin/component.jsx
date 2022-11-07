@@ -7,20 +7,33 @@ import { Link } from "react-router-dom";
 import './style.css'
 import { getToken } from "../../library/userAuth";
 
-const LoginForm = (props) => {
-    const { navigate } = useNavigate();
-    const onFinish = values => {
-        console.log('Received values of form: ', values);
+const App = (props) => {
+    const navigate = useNavigate();
+    const {
+        // actions
+        handleChangeEmail,
+        handleChangePassword,
+        handleLogin,
+        // data
+        email,
+        password,
+        isLoading,
+    } = props
+
+    const onFinish = () => {
+        handleLogin()
     };
 
     useEffect(() => {
+        navigate("/")
+
         document.title = 'Login Form';
         const token = getToken();   
         if(token){
-            navigate("/")
+            navigate("/home")
         }
 
-    }, [navigate]);
+    });
 
     return (
         <div className='login-container'>
@@ -31,6 +44,7 @@ const LoginForm = (props) => {
                     remember: true,
                 }}
                 onFinish={onFinish}
+
             >
                 <Form.Item
                     name="username"
@@ -41,7 +55,12 @@ const LoginForm = (props) => {
                         },
                     ]}
                 >
-                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email" />
+                    <Input
+                        disabled={isLoading}
+                        prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email"
+                        onChange={handleChangeEmail}
+                        value={email}
+                    />
                 </Form.Item>
                 <Form.Item
                     name="password"
@@ -53,7 +72,10 @@ const LoginForm = (props) => {
                     ]}
                 >
                     <Input
+                        disabled={isLoading}
                         prefix={<LockOutlined className="site-form-item-icon" />}
+                        value={password}
+                        onChange={handleChangePassword} 
                         type="password"
                         placeholder="Password"
                     />
@@ -69,7 +91,7 @@ const LoginForm = (props) => {
                 </Form.Item>
 
                 <Form.Item>
-                    <Button type="primary" htmlType="submit" className="login-form-button">
+                    <Button type="primary" htmlType="submit" className="login-form-button" loading={isLoading}>
                         Log in
                     </Button>
                     Or <Link href="">register now!</Link>
@@ -79,4 +101,4 @@ const LoginForm = (props) => {
     );
 };
 
-export default LoginForm;
+export default App;

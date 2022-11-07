@@ -2,6 +2,8 @@ import { connect } from 'react-redux'
 import App from './component'
 import {
     handleChangeLoading,
+    handleChangeEmail, handleChangePassword,
+    handleLogin,
 } from './actions'
 
 
@@ -10,7 +12,9 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-    handleChangeLoading
+    handleChangeLoading,
+    handleChangeEmail, handleChangePassword,
+    handleLogin,
 }
 
 export default connect(
