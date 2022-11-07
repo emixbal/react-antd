@@ -14,6 +14,7 @@ const RegisterForm = () => {
     };
 
     useEffect(() => {
+        document.title = 'Register Form';
         const token = getToken();
         if(token){
             navigate("/")

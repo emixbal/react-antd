@@ -14,6 +14,7 @@ const LoginForm = () => {
     };
 
     useEffect(() => {
+        document.title = 'Login Form';
         const token = getToken();
         if(token){
             navigate("/")
