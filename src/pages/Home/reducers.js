@@ -7,6 +7,10 @@ const main = (state = defaultState(), action) => {
                 ...state,
                 isLoading: action.value
             }
+        case type.RESET:
+            return {
+                ...defaultState(),
+            };
         default:
             return state
     }
