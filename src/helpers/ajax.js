@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { notification } from 'antd';
 // import history from '../library/history'
-import { getToken } from '../library/userAuth'
+import { getAccessToken } from '../library/userAuth'
 
 async function signout() {
     // history.push("/login")
@@ -36,12 +36,12 @@ function onError(error) {
 }
 
 function getInstance() {
-    const token = getToken()
+    const accessToken = getAccessToken()
     var headers = {}
 
-    if (token) {
+    if (accessToken) {
         headers = {
-            Authorization: `Bearer ${token}`,
+            Authorization: `${accessToken}`,
         }
     }
 

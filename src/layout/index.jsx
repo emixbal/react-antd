@@ -6,7 +6,7 @@ import {
 } from '@ant-design/icons';
 
 import { items } from "./menuItems";
-import { getToken, removeToken } from "../library/userAuth";
+import { getAccessToken, removeToken } from "../library/userAuth";
 
 const { Header, Content, Sider } = Layout;
 
@@ -22,8 +22,8 @@ const App = (props) => {
         });
         setPaths(paths)
 
-        const token = getToken();
-        if (!token) {
+        const accessToken = getAccessToken();
+        if (!accessToken) {
             navigate("/login")
         }
 
@@ -43,13 +43,16 @@ const App = (props) => {
                         theme="dark" defaultSelectedKeys={paths} mode="inline" items={items}
                         onSelect={({ selectedKeys }) => navigate(`/${selectedKeys[0]}`)}
                     />
-                    <Menu theme="dark" mode="inline">
-                        <Menu.Item icon={<LogoutOutlined />}>
-                            <div onClick={()=>handleLogout()}>
-                                Logout
-                            </div>
-                        </Menu.Item>
-                    </Menu>
+                    <Menu
+                        onSelect={()=>handleLogout()}
+                        theme="dark" mode="inline"
+                        items={[{
+                            label: "Logout",
+                            key: "logout",
+                            icon: <LogoutOutlined />,
+                            children: ""
+                        }]}
+                    />
                 </Sider>
                 <Layout className="site-layout">
                     <Header className="site-layout-background" style={{ padding: 0 }} />

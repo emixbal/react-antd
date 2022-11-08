@@ -5,7 +5,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link } from "react-router-dom";
 
 import './style.css'
-import { getToken } from "../../library/userAuth";
+import { getAccessToken } from "../../library/userAuth";
 
 const App = (props) => {
     const navigate = useNavigate();
@@ -26,8 +26,8 @@ const App = (props) => {
 
     useEffect(() => {
         document.title = 'Login Form';
-        const token = getToken();   
-        if(token){
+        const accessToken = getAccessToken();   
+        if(accessToken){
             navigate("/home")
         }
 

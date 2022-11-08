@@ -53,7 +53,7 @@ export const handleLogin = () => {
         } = state.authLogin;
 
         dispatch(changeLoading(true))
-        const res = await Post(`${BASE_API_URL}/login`, {
+        const res = await Post(`${BASE_API_URL}/auth/login`, {
             email, password
         });
         dispatch(changeLoading(false))
@@ -68,11 +68,12 @@ export const handleLogin = () => {
         if(res.error){
             return notification.error({
                 message: 'Error',
-                description:res.error,
+                description:res.message,
             })
         }
 
-        localStorage.setItem("token", res.token)
+        localStorage.setItem("accessToken", res.AccessToken)
+        localStorage.setItem("refreshToken", res.RefreshToken)
         window.location.reload();
         
         dispatch(changeLoading(false))
