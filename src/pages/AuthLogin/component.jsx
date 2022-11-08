@@ -31,7 +31,7 @@ const App = (props) => {
             navigate("/home")
         }
 
-    });
+    }, [navigate]);
 
     return (
         <div className='login-container'>

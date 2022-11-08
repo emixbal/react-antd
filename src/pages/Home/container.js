@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import App from './component'
 import {
-    handleChangeLoading,
+    handleChangeLoading, handleGetUsers,
 } from './actions'
 
 
@@ -10,7 +10,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-    handleChangeLoading
+    handleChangeLoading, handleGetUsers
 }
 
 export default connect(

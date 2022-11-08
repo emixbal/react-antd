@@ -1,10 +1,40 @@
 import axios from 'axios'
 import { notification } from 'antd';
 // import history from '../library/history'
-import { getAccessToken } from '../library/userAuth'
+import { BASE_API_URL } from "../config";
+import { getAccessToken, getRefreshToken, removeToken } from '../library/userAuth'
+
+let accessToken = getAccessToken()
 
 async function signout() {
-    // history.push("/login")
+    alert("signout")
+    removeToken()
+    window.location.reload();
+}
+
+async function refreshToken() {
+    const refreshToken = getRefreshToken()
+
+    const res = await Post(`${BASE_API_URL}/auth/refresh`, {
+        refresh_token:refreshToken
+    });
+
+    if (!res) {
+        console.log("========> !res");
+        return false
+    }
+
+    if (res.Error) {
+        console.log("========> ", res.Message);
+        return false
+    }
+
+    localStorage.setItem("accessToken", res.AccessToken)
+    localStorage.setItem("refreshToken", res.RefreshToken)
+
+    accessToken = getAccessToken()
+
+    return true
 }
 
 function onError(error) {
@@ -14,14 +44,16 @@ function onError(error) {
 
             notification.warning({
                 message: 'Error',
-                description:'No internet connection',
+                description: 'No internet connection',
             })
         }
         return false
     }
 
     if (error.response.status === 401) {
-        signout()
+        return error.response.data
+    } else if (error.response.status === 403) {
+        return error.response.data
     } else if (error.response.status === 400) {
         return error.response.data
     } else if (error.response.status === 404) {
@@ -29,14 +61,13 @@ function onError(error) {
     } else {
         notification.error({
             message: 'Error',
-            description:'Connection error',
+            description: 'Connection error',
         })
         return false
     }
 }
 
 function getInstance() {
-    const accessToken = getAccessToken()
     var headers = {}
 
     if (accessToken) {
@@ -64,7 +95,16 @@ export async function Put(url, params) {
 }
 
 export async function Get(url, params) {
-    return getInstance().get(url, { params }).then((value) => value.data).catch(onError)
+    return getInstance().get(url, { params }).then((value) => value.data).catch(function (error) {
+        if(error.response.status === 401){
+            console.log("need refrsh token");
+            if(refreshToken()){
+                console.log("success refrsh token");
+                return Get(url, params);
+            }
+        }
+        return onError(error)
+    })
 }
 
 export async function Delete(url, params) {
