@@ -6,6 +6,7 @@ const key = "HOME"
 export const type = {
     RESET: `${key}_RESET`,
     CHANGE_LOADING: `${key}_CHANGE_LOADING`,
+    CHANGE_USERS_DATA: `${key}_CHANGE_USERS_DATA`,
 }
 
 export const reset = () => ({
@@ -17,7 +18,12 @@ export const changeLoading = (value) => ({
     value
 })
 
-export const handleChangeLoading = (event) => {
+export const changeUsersData = (value) => ({
+    type: type.CHANGE_USERS_DATA,
+    value
+})
+
+export const handleChangeLoading = () => {
     return async (dispatch, getState) => {
         dispatch(changeLoading(true))
         return
@@ -26,12 +32,16 @@ export const handleChangeLoading = (event) => {
 
 export const handleGetUsers = () => {
     return async (dispatch, getState) => {
-        dispatch(changeLoading(true))
+        let users = []
         const res = await Get(`${BASE_API_URL}/user/all`);
-        dispatch(changeLoading(false))
-
+        if(!res){
+            return
+        }
+        if(res.Data){
+            users = res.Data
+        }
+        dispatch(changeUsersData(users || []))
         console.log(res);
-
         return
     }
 }
