@@ -1,5 +1,5 @@
-import { Get } from "../../helpers/ajax";
-import { BASE_API_URL } from "../../config";
+// import { Get } from "../../helpers/ajax";
+// import { BASE_API_URL } from "../../config";
 
 const key = "HOME"
 
@@ -26,22 +26,6 @@ export const changeUsersData = (value) => ({
 export const handleChangeLoading = () => {
     return async (dispatch, getState) => {
         dispatch(changeLoading(true))
-        return
-    }
-}
-
-export const handleGetUsers = () => {
-    return async (dispatch, getState) => {
-        let users = []
-        const res = await Get(`${BASE_API_URL}/user/all`);
-        if(!res){
-            return
-        }
-        if(res.Data){
-            users = res.Data
-        }
-        dispatch(changeUsersData(users || []))
-        console.log(res);
         return
     }
 }

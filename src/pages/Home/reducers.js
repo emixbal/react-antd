@@ -7,11 +7,6 @@ const main = (state = defaultState(), action) => {
                 ...state,
                 isLoading: action.value
             }
-        case type.CHANGE_USERS_DATA:
-            return {
-                ...state,
-                users: action.value
-            }
         case type.RESET:
             return {
                 ...defaultState(),
@@ -23,7 +18,6 @@ const main = (state = defaultState(), action) => {
 
 const defaultState = () => ({
     isLoading: false,
-    users:[],
 })
 
 export default main
