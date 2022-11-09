@@ -44,7 +44,7 @@ const App = (props) => {
                         onSelect={({ selectedKeys }) => navigate(`/${selectedKeys[0]}`)}
                     />
                     <Menu
-                        onSelect={()=>handleLogout()}
+                        onSelect={() => handleLogout()}
                         theme="dark" mode="inline"
                         items={[{
                             label: "Logout",
@@ -64,11 +64,16 @@ const App = (props) => {
                                 })
                             }
                         </Breadcrumb>
-                        <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
+
+                        <main >
+                            {children}
+                        </main>
+
+                        {/* <div className="site-layout-background" style={{ padding: 24, minHeight: "100vh" }}>
                             <main>
                                 {children}
                             </main>
-                        </div>
+                        </div> */}
                     </Content>
                 </Layout>
             </Layout>
